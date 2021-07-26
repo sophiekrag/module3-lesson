@@ -7,7 +7,6 @@ function CardLanes () {
         <section>
             <section>
                 <Card />
-                <Card/>
             </section>
         </section>
     )

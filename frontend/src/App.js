@@ -9,7 +9,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Signup from "./pages/Signup"
 
-import AxiosApi from "./utils/AxiosApi";
+// import AxiosApi from "./utils/AxiosApi";
 
 import {
   ResetStyles,
@@ -20,18 +20,18 @@ function App() {
   const [formData, setFormData] = useState({});
   const [toggleTheme, setToggleTheme] = useState(false);
 
-  useEffect(() => {
-    // trigger once (when component is done)
-    const fetchData = async () => {
-      try{
-        const response = await AxiosApi("users");
-        console.log("Axios call", response.data);
-      }
-      catch(error) {console.log(error)}
-    };
+  // useEffect(() => {
+  //   // trigger once (when component is done)
+  //   const fetchData = async () => {
+  //     try{
+  //       const response = await AxiosApi("users");
+  //       console.log("Axios call", response.data);
+  //     }
+  //     catch(error) {console.log(error)}
+  //   };
     
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
     // trigger on dependency

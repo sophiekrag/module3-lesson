@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import AxiosApi from "../utils/AxiosApi"
+
 
 const Card = ({ priority = 0, date, description, reporter }) => {
+  const [complaintData, setComplaintData] = useState([])
+
   const prioList = [
     {
       title: "low",
@@ -17,17 +21,40 @@ const Card = ({ priority = 0, date, description, reporter }) => {
     },
   ];
 
+  useEffect(() => {
+    // trigger once (when component is done)
+    const fetchData = async () => {
+      try{
+        const response = await AxiosApi("users");
+        const complaintData = await response.data
+        setComplaintData([...complaintData])
+      }
+      catch(error) {console.log(error)}
+    };
+   
+    fetchData();
+  }, []);
+
+  console.log(complaintData)
+
   return (
-    <CardContainer>
+    <>
+    {complaintData.map((complaint) => (
+    <CardContainer key={complaint._id}>
       <Top>
         <Prio prioType={prioList[priority].color}>
-          {prioList[priority].title}
+          {complaint.prio}
         </Prio>
-        <span>{date}date</span>
+        <span>{complaint.createdAt}</span>
       </Top>
-      <Reporter>report: {reporter}reporter</Reporter>
-      <Description>{description}description</Description>
+      
+        <div>
+          <Reporter>report: {complaint.user}</Reporter>
+          <Description>{complaint.description}</Description>
+        </div>
     </CardContainer>
+    ) )}
+    </>
   );
 };
 
